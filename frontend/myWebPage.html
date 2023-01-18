@@ -46,8 +46,10 @@
     console.log(d)
     let finalPrice = 0;
     dailyRate = s/365;
-    finalPrice = dailyRate * d;
-    document.getElementById("finalPrice").innerHTML = finalPrice;
+    price = Math.round(dailyRate * d);
+    var roundToNearest = 50;
+    roundedPrice = Math.round((price+roundToNearest)/roundToNearest) * roundToNearest // Always round up
+    document.getElementById("finalPrice").innerHTML = "£" + roundedPrice;
   }
   </script>
 
