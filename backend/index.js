@@ -4,9 +4,13 @@ var path = require('path');
 var express = require('express');
 var app = express();
 
+var options = {
+    index: "myWebPage.html"
+  };
+
 var dir = path.join(__dirname, '../frontend');
 
-app.use(express.static(dir));
+app.use(express.static(dir, options));
 
 app.listen(8000, function () {
     console.log('Listening on http://localhost:8000/');
