@@ -10,6 +10,11 @@ var options = {
 
 var dir = path.join(__dirname, '../frontend');
 
+app.get('/api', function(req, res){
+    res.send("Hello world!")
+
+});
+
 app.use(express.static(dir, options));
 
 app.listen(8000, function () {
