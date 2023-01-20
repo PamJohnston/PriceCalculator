@@ -1,14 +1,13 @@
-var http = require("http");
+//https://stackoverflow.com/questions/5823722/how-to-serve-an-image-using-nodejs
 
-http.createServer(function (request, response) {
-   // Send the HTTP header
-   // HTTP Status: 200 : OK
-   // Content Type: text/plain
-   response.writeHead(200, {'Content-Type': 'text/plain'});
+var path = require('path');
+var express = require('express');
+var app = express();
 
-   // Send the response body as "Hello World"
-   response.end('Hello World\n');
-}).listen(8000);
+var dir = path.join(__dirname, '../frontend');
 
-// Console will print the message
-console.log('Server running at http://127.0.0.1:8000/');
+app.use(express.static(dir));
+
+app.listen(8000, function () {
+    console.log('Listening on http://localhost:8000/');
+});
