@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
 </head>
@@ -18,12 +18,12 @@
 </div>
 
 <div class="container form-group">
-  <form id="budget" action="/api/getPrice">
+  <form id="budget">
     <label for="salary">What annual salary seems suitable for you?</label>
     <input type="text" id="salary" name="salary" class="form-control" /><br><br>
     <label for="days">How many days do you think it will take you to make the website?</label>
     <input type="text" id="days" name="days" class="form-control"/><br><br>
-    <input type="submit" value="Calculate your price!" class="btn btn-lg"><br><br>
+    <input type="button" id="submit" value="Calculate your price!" class="btn btn-lg"><br><br>
     <label id="finalPrice"> ??? </label>
   </form>
 </div>
@@ -38,7 +38,7 @@
 
 
 <script>
-  function calculatePrice() {
+  /* function calculatePrice() {
     var s = document.getElementById("salary").value;
     var d = document.getElementById("days").value;
     console.log("Calculating price")
@@ -51,6 +51,27 @@
     roundedPrice = Math.round((price+roundToNearest)/roundToNearest) * roundToNearest // Always round up
     document.getElementById("finalPrice").innerHTML = "£" + roundedPrice;
   }
+  */
+  // handling the submit button through the API
+  $('#submit').click(handleClick);
+
+  function handleClick() {
+    var salary = $('#salary').val();
+    var days = $('#days').val();
+
+    var url = "/api/getPrice?"+"salary="+salary+"&days="+days;
+    console.log(url)
+
+    $.ajax(
+      {url: url,
+      success: function(finalPrice){
+        $("#finalPrice").html(finalPrice);
+      }
+    });
+    return false;
+  }
+
+
   </script>
 
 </body>
